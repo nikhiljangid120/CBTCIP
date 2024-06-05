@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Number Operations</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+h2 {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#results {
+  margin-top: 20px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Number Operations</h2>
+    <label for="number">Enter a number:</label>
+    <input type="number" id="number" placeholder="Enter a number">
+    <button onclick="performOperations()">Perform Operations</button>
+    <div id="results"></div>
+  </div>
+</body>
+<script>
+    function performOperations() {
+  const number = parseInt(document.getElementById('number').value);
+  let sumOfDigits = 0;
+  let isArmstrong = false;
+  let isPrime = true;
+  const factors = [];
+
+  let tempNumber = number;
+  while (tempNumber > 0) {
+    const digit = tempNumber % 10;
+    sumOfDigits += digit;
+    tempNumber = Math.floor(tempNumber / 10);
+  }
+
+  tempNumber = number;
+  let armstrongSum = 0;
+  while (tempNumber > 0) {
+    const digit = tempNumber % 10;
+    armstrongSum += Math.pow(digit, 3);
+    tempNumber = Math.floor(tempNumber / 10);
+  }
+  if (armstrongSum === number) {
+    isArmstrong = true;
+  }
+
+  if (number <= 1) {
+    isPrime = false;
+  } else {
+    for (let i = 2; i <= Math.sqrt(number); i++) {
+      if (number % i === 0) {
+        isPrime = false;
+        break;
+      }
+    }
+  }
+
+  for (let i = 1; i <= number; i++) {
+    if (number % i === 0) {
+      factors.push(i);
+    }
+  }
+
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.innerHTML = `
+    <p>Sum of its digits: ${sumOfDigits}</p>
+    <p>Is it an Armstrong number? ${isArmstrong ? 'Yes' : 'No'}</p>
+    <p>Is it a prime number? ${isPrime ? 'Yes' : 'No'}</p>
+    <p>Factors: ${factors.join(', ')}</p>
+  `;
+}
+</script>
+</html>
